@@ -62,17 +62,21 @@
                 let term_box = styled_div("term-box");
 
                 let subj_group = styled_div("subject-group");
+                let group_height = 0;
 
-                let curr_group;
+                let curr_group = -1;
                 for (let subj of term_subjs) {
-                    if (!subj.group || subj.type !== curr_group) {
+                    if (!subj.group || subj.group !== curr_group) {
+                        if (curr_group !== -1) {
+                            subj_group.style.flexGrow = "" + group_height;
+                            term_box.appendChild(subj_group);
+                            subj_group = styled_div("subject-group");
+                            group_height = 0;
+                        }
                         curr_group = subj.group;
-                        term_box.appendChild(subj_group);
-                        subj_group = styled_div("subject-group");
                     }
                     let subj_dom = styled_div("subject");
-                    if (subj.type)
-                        subj_dom.className += " subj-" + subj.type;
+                    subj_dom.className += " subj-" + subj.type;
 
                     let subj_title = styled_div(
                         subj.title.length < params.title_max_len ? "subj-title" : "subj-subtitle"
@@ -86,10 +90,12 @@
                         subj_dom.appendChild(subj_subtitle);
                     }
 
-                    subj_dom.style.height = (100.0 * subj.credits / term.total_credits) + "%";  // TODO
+                    group_height += subj.credits;
+                    subj_dom.style.flexGrow = "" + subj.credits;
 
                     subj_group.appendChild(subj_dom);
                 }
+                subj_group.style.flexGrow = "" + group_height;
                 term_box.appendChild(subj_group);
 
                 term_dom.appendChild(term_box);

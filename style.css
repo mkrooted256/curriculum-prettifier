@@ -21,7 +21,6 @@ body {
     box-sizing: border-box;
     padding-left: 1.5em;
     width: 12.5em;
-    /*height: 20em;*/
 }
 
 .term-title {
@@ -33,23 +32,28 @@ body {
 }
 
 .term-box {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
     border: 1px solid dimgrey;
     padding: 1em 1em 0;
-    /*height: 40vw;*/
+    height: 30em;
     box-sizing: border-box;
 }
 
 .subject-group {
     padding-bottom: 0.8em;
+    display: flex;
+    flex-direction: column;
 }
 .subject {
     background-color: #F2B604;   /* default colour */
     padding: 0.5em 0.2em;
     margin-top: -0.1em;
     border: 0.1em solid rgba(0,0,0,0.1);
-    border-collapse: collapse;
     box-shadow: 4px 3px #e0e0e0;
     text-align: center;
+    height: 100%;
 }
 
 .subj-title {

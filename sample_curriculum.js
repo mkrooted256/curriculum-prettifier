@@ -28,12 +28,14 @@ const sample_curriculum = [
             {
                 "title": "Алгебра та геометрія",
                 "type": 2,
-                "credits": 4
+                "credits": 4,
+                "group": 1
             },
             {
                 "title": "Дискретна математика",
                 "type": 2,
-                "credits": 7
+                "credits": 7,
+                "group": 1
             },
             {
                 "title": "Програмування 1",
@@ -138,12 +140,14 @@ const sample_curriculum = [
             {
                 "title": "Алгебра та геометрія",
                 "type": 2,
-                "credits": 4
+                "credits": 4,
+                "group": 1
             },
             {
                 "title": "Дискретна математика",
                 "type": 2,
-                "credits": 7
+                "credits": 7,
+                "group": 1
             },
             {
                 "title": "Програмування 1",
