@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Curriculum Prettifier</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Montserrat&display=swap&subset=cyrillic,cyrillic-ext"
+          rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script>
+        /**
+         * @typedef {Object} Subject
+         * @property {string} title
+         * @property {string} [subtitle]
+         * @property {number} [group] Integer. Optional. Subjects form groups, groups in term are sorted in asc order by `group`
+         * @property {number} type Integer.
+         *                    Subjects in group are sorted in asc order by `type`. Corresponding style is applied to subject card (.subj-n)
+         * @property {number} credits How much does this subject has academic hours per week
+         */
+
+        /**
+         * @typedef {Object} Term
+         * @property {Subject[]} subjects
+         * @property {number} total_credits Sum of all subjects credits in this term
+         */
+
+        /**
+         * @typedef {Term[]} Curriculum
+         */
+
+        /**
+         * Main function. Builds table in the #box element
+         *
+         * @param {Curriculum} curriculum array of terms
+         * @param {Object} params see `sample_curriculum.js`
+         * @param {Object} params.dictionary words in your language
+         * @param {Object} params.title_max_len if title is longer it becomes subtitle
+         * @param {Object} params.legend_caption_max_len if caption is longer script tries to fix vertical alignment
+         *
+         */
+        function build(curriculum, params) {
+            function styled_div(styleclass) {
+                let div = document.createElement("div");
+                div.className = styleclass;
+                return div;
+            }
+
+            const box = document.getElementById("box");
+            let term_n = 0;
+            for (let term of curriculum) {
+                term_n++;
+                let term_subjs = term.subjects;
+
+                // sort subjects in ascending order by their "type"
+                term_subjs.sort((x, y) => (x.type + x.group * 1000) - (y.type + y.group * 1000));
+
+                let term_dom = styled_div("term");
+
+                let term_title = styled_div("term-title");
+                term_title.innerHTML = term_n + " " + params.dictionary.term;
+                term_dom.appendChild(term_title);
+
+                let term_box = styled_div("term-box");
+
+                let subj_group = styled_div("subject-group");
+
+                let curr_group;
+                for (let subj of term_subjs) {
+                    if (!subj.group || subj.type !== curr_group) {
+                        curr_group = subj.group;
+                        term_box.appendChild(subj_group);
+                        subj_group = styled_div("subject-group");
+                    }
+                    let subj_dom = styled_div("subject");
+                    if (subj.type)
+                        subj_dom.className += " subj-" + subj.type;
+
+                    let subj_title = styled_div(
+                        subj.title.length < params.title_max_len ? "subj-title" : "subj-subtitle"
+                    );
+                    subj_title.innerHTML = subj.title;
+                    subj_dom.appendChild(subj_title);
+
+                    if (subj.subtitle) {
+                        let subj_subtitle = styled_div("subj-subtitle");
+                        subj_subtitle.innerHTML = subj.subtitle;
+                        subj_dom.appendChild(subj_subtitle);
+                    }
+
+                    subj_dom.style.height = (100.0 * subj.credits / term.total_credits) + "%";  // TODO
+
+                    subj_group.appendChild(subj_dom);
+                }
+                term_box.appendChild(subj_group);
+
+                term_dom.appendChild(term_box);
+                box.appendChild(term_dom);
+            }
+
+            let type_n = 0;
+            let legend = document.getElementById("legend");
+            for (let type in params.dictionary.subject_types) {
+                let item = styled_div("legend-item");
+                let icon = styled_div("legend-item-icon subj-"+type);
+                let caption = styled_div("legend-item-caption");
+                if (params.dictionary.subject_types[type].length > params.legend_caption_max_len) {
+                    let caption_content = document.createElement("div");
+                    caption_content.innerHTML = params.dictionary.subject_types[type];
+                    caption_content.style.display = "table-cell";
+                    caption_content.style.verticalAlign = "middle";
+                    caption.appendChild(caption_content);
+                    icon.style.verticalAlign = "unset";
+                } else {
+                    caption.innerHTML = params.dictionary.subject_types[type];
+                }
+                item.appendChild(icon);
+                item.appendChild(caption);
+                legend.appendChild(item);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="main-panel">
+    <div class="box" id="box"></div>
+    <div class="legend" id="legend"></div>
+</div>
+<script src="sample_curriculum.js"></script>
+<script>
+    build(sample_curriculum, sample_params);
+</script>
+</body>
+</html>

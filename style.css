@@ -1,0 +1,120 @@
+body {
+    width: 102em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    font-family: Montserrat, sans-serif;
+}
+
+.main-panel {
+    width: 100em;
+    padding: 1em;
+    background-color: white;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    padding-right: 1em;
+}
+
+.term {
+    box-sizing: border-box;
+    padding-left: 1.5em;
+    width: 12.5em;
+    /*height: 20em;*/
+}
+
+.term-title {
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    height: 1em;
+    padding-bottom: 1em;
+}
+
+.term-box {
+    border: 1px solid dimgrey;
+    padding: 1em 1em 0;
+    /*height: 40vw;*/
+    box-sizing: border-box;
+}
+
+.subject-group {
+    padding-bottom: 0.8em;
+}
+.subject {
+    background-color: #F2B604;   /* default colour */
+    padding: 0.5em 0.2em;
+    margin-top: -0.1em;
+    border: 0.1em solid rgba(0,0,0,0.1);
+    border-collapse: collapse;
+    box-shadow: 4px 3px #e0e0e0;
+    text-align: center;
+}
+
+.subj-title {
+    font-size: 0.8em;
+}
+.subj-subtitle {
+    font-size: 0.6em;
+}
+
+.legend {
+    padding-top: 3em;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 70em;
+    height: 8em;
+}
+.legend-item {
+    padding: 0.5em;
+    width: 10em;
+    height: 2em;
+    white-space: nowrap;
+}
+.legend-item-icon {
+    border: 0.1em solid rgba(0,0,0,0.1);
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+.legend-item-caption {
+    display: inline-block;
+    white-space: normal;
+    font-size: 0.6em;
+}
+
+.subj-1 {
+    background-color: #F25B04;
+}
+.subj-2 {
+    background-color: #F28704;
+}
+.subj-3 {
+    background-color: #F2B604;
+}
+.subj-4 {
+    background-color: #ff99be;
+}
+.subj-5 {
+    background-color: #70A0DB;
+}
+.subj-6 {
+    background-color: #9CBF1B;
+}
+.subj-7 {
+    background-color: #52CBD8;
+}
+.subj-8 {
+    background-color: #D85B89;
+}
+.subj-9 {
+    background-color: #9CBF1B;
+}
+.subj-10 {
+    background-color: #bfbfbf;
+}
